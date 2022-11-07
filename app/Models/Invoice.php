@@ -8,9 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'customer_id',
+        'amount',
+        'status',
+        'billed_dated',
+        'paid_dated'
+    ];
 
 
-    public function customers(){
+    public function customers()
+    {
         return $this->belongsTo(Customer::class);
     }
 }
