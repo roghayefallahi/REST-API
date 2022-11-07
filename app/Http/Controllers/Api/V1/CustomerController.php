@@ -5,13 +5,12 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
-use App\Http\Requests\StoreCustomerRequest;
-use App\Http\Requests\UpdateCustomerRequest;
 use App\Http\Resources\V1\CustomerCollection;
 use App\Http\Resources\V1\CustomerResource;
 use Illuminate\Http\Request;
 use App\Filters\V1\CustomersFilter;
-use App\Http\Requests\V1\StoreCustomerRequest as V1StoreCustomerRequest;
+use App\Http\Requests\V1\StoreCustomerRequest;
+use App\Http\Requests\V1\UpdateCustomerRequest;
 
 class CustomerController extends Controller
 {
@@ -43,7 +42,7 @@ class CustomerController extends Controller
      * @param  \App\Http\Requests\StoreCustomerRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(V1StoreCustomerRequest $request)
+    public function store(StoreCustomerRequest $request)
     {
         return new CustomerResource(Customer::create($request->all()));
     }
@@ -75,7 +74,7 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        //
+      $customer->update($request->all());
     }
 
     /**
@@ -86,6 +85,6 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete($customer);
     }
 }
